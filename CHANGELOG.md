@@ -41,6 +41,15 @@
     correctly 'ISSUE\_TEMPLATE.md'.
   - Changed appveyor.yml to use the new default test framework in the AppVeyor
     module in DscResource.Tests (AppVeyor.psm1).
+  - Added new stubs for FailoverClusters module
+    (Tests\Unit\Stubs\FailoverClusters.stubs.psm1) to be able to run unit tests
+    on a computer that does not have or can install Failover Clustering
+    PowerShell module.
+  - Added a script file (Tests\Unit\Stubs\Write-ModuleStubFile.ps1) to be able
+    to rebuild the stub file (FailoverClusters.stubs.psm1) whenever needed.
+  - Added settings file for VS Code extension markdownlint (.markdownlint.json).
+    This will help keeping the line-length (MD013) in markdown file for contributors
+    using VS Code.
 - Changes to xCluster
   - Added examples
     - 1-CreateFirstNodeOfAFailoverCluster.ps1
@@ -48,6 +57,13 @@
     - 3-CreateFailoverClusterWithTwoNodes.ps1 (this is the example from README.md)
   - Fixed typo in xCluster parameter description.
   - Added links to examples from README.md
+  - Refactored the unit test for this resource to use stubs and increase coverage
+    (issue #73).
+    - Removed the password file (MSFT_xCluster.password.txt) which seemed unnecessary.
+  - Test-TargetResource now throws and error if domain name cannot be evaluated
+    (issue #72).
+  - Set-TargetResource now correctly throws and error if domain name cannot be
+    evaluated (issue #71).
 - Changes to xWaitForCluster
   - Added example
     - 1-WaitForFailoverClusterToBePresent.ps1
