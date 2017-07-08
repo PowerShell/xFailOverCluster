@@ -98,6 +98,9 @@
   - Added example (issue #57)
     - 1-ChangeClusterNetwork.ps1
   - Added links to examples from README.md.
+- Changes to xClusterQuorum
+  - Refactored the unit test for this resource to use stubs and increase coverage
+    (issue #77).
 
 ### 1.6.0.0
 
