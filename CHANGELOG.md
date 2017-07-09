@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Changes to xCluster
+  - Allow StaticIPAddress to be unspecified (issue #109). Should fallback to DHCP.
+
 ## 1.8.0.0
 
 - Changes to xFailOverCluster
