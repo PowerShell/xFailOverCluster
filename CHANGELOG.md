@@ -19,6 +19,17 @@
 - Changes to xCluster
   - Resolved Script Analyzer rule warnings by changing Get-WmiObject to
     Get-CimInstance ([issue #49](https://github.com/PowerShell/xFailOverCluster/issues/49)).
+- Changes to xClusterQuorum
+  - Refactored the unit test for this resource to use stubs and increase coverage
+    (issue #77).
+  - Changed the code to be more aligned with the style guideline.
+  - Updated parameter description in the schema.mof.
+  - Added example (issue #47)
+    - 1-SetQuorumToNodeMajority.ps1
+    - 2-SetQuorumToNodeAndDiskMajority.ps1
+    - 3-SetQuorumToNodeAndFileShareMajority.ps1
+    - 4-SetQuorumToDiskOnly.ps1
+  - Added links to examples from README.md.
 
 ## 1.7.0.0
 
@@ -117,17 +128,6 @@
   - Updated resource and parameter description in README.md and schema.mof.
   - Added example ([issue #57](https://github.com/PowerShell/xFailOverCluster/issues/57))
     - 1-ChangeClusterNetwork.ps1
-  - Added links to examples from README.md.
-- Changes to xClusterQuorum
-  - Refactored the unit test for this resource to use stubs and increase coverage
-    (issue #77).
-  - Changed the code to be more aligned with the style guideline.
-  - Updated parameter description in the schema.mof.
-  - Added example (issue #47)
-    - 1-SetQuorumToNodeMajority.ps1
-    - 2-SetQuorumToNodeAndDiskMajority.ps1
-    - 3-SetQuorumToNodeAndFileShareMajority.ps1
-    - 4-SetQuorumToDiskOnly.ps1
   - Added links to examples from README.md.
 
 ### 1.6.0.0
