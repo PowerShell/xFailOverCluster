@@ -2,6 +2,9 @@
 #      environment configuration  #
 #---------------------------------#
 version: 1.6.{build}.0
+init:
+    - ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200  az818661.vo.msecnd.net")'
+
 install:
     - git clone https://github.com/PowerShell/DscResource.Tests
 
