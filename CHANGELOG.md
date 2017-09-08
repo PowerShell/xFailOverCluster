@@ -1,7 +1,8 @@
 # Change log for xFailOverCluster
 
 ## Unreleased
-
+- Changes to xClusterQuorum
+  - server 2016 test failed on nodeandfilesharemajority if you used filesharemajority.
 ## 1.8.0.0
 
 - Changes to xFailOverCluster
