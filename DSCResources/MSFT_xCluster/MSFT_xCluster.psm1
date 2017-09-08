@@ -13,6 +13,11 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xCluster'
     .PARAMETER StaticIPAddress
         Static IP Address of the failover cluster.
 
+    .PARAMETER IgnoreNetwork
+        One or more networks to ignore when creating the cluster.  Typically
+        used to ignore networks with DHCP enabled since they are always included
+        by default.
+
     .PARAMETER DomainAdministratorCredential
         Credential used to create the failover cluster in Active Directory.
 #>
@@ -28,6 +33,10 @@ function Get-TargetResource
         [Parameter(Mandatory = $true)]
         [System.String]
         $StaticIPAddress,
+
+        [Parameter(Mandatory = $false)]
+        [System.Collections.Specialized.StringCollection]
+        $IgnoreNetwork,
 
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
@@ -154,7 +163,7 @@ function Set-TargetResource
         {
             Write-Verbose -Message ($script:localizedData.ClusterAbsent -f $Name)
 
-            New-Cluster -Name $Name -Node $env:COMPUTERNAME -StaticAddress $StaticIPAddress -NoStorage -Force -ErrorAction Stop
+            New-Cluster -Name $Name -Node $env:COMPUTERNAME -IgnoreNetwork $IgnoreNetwork -StaticAddress $StaticIPAddress -NoStorage -Force -ErrorAction Stop
 
             if ( -not (Get-Cluster))
             {
@@ -211,6 +220,11 @@ function Set-TargetResource
     .PARAMETER StaticIPAddress
         Static IP Address of the failover cluster.
 
+    .PARAMETER IgnoreNetwork
+        One or more networks to ignore when creating the cluster.  Typically
+        used to ignore networks with DHCP enabled since they are always included
+        by default.
+
     .PARAMETER DomainAdministratorCredential
         Credential used to create the failover cluster in Active Directory.
 
@@ -238,6 +252,10 @@ function Test-TargetResource
         [Parameter(Mandatory = $true)]
         [System.String]
         $StaticIPAddress,
+
+        [Parameter(Mandatory = $false)]
+        [System.Collections.Specialized.StringCollection]
+        $IgnoreNetwork,
 
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
