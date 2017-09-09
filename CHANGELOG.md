@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Changes to xCluster
+  - Added -IgnoreNetwork parameter
+
 ## 1.8.0.0
 
 - Changes to xFailOverCluster
