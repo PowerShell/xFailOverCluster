@@ -1,11 +1,14 @@
 #pragma namespace("\\\\.\\root\\microsoft\\windows\\DesiredStateConfiguration")
 
-[ClassVersion("1.0.0"), FriendlyName("xCluster")] 
+[ClassVersion("1.0.0"), FriendlyName("xCluster")]
 class MSFT_xCluster : OMI_BaseResource
 {
     [key, Description("Name of the Cluster")] string Name;
     [required, Description("StaticIPAddress of the Cluster")] string StaticIPAddress;
-    
-    [required, EmbeddedInstance("MSFT_Credential"), Description("Credential to create the cluster")] 
+
+    [Write, Description("One or more networks to ignore when creating the cluster.  Typically used to ignore networks with DHCP enabled since they are always included by default.")]
+    String IgnoreNetwork[];
+
+    [required, EmbeddedInstance("MSFT_Credential"), Description("Credential to create the cluster")]
     String DomainAdministratorCredential;
 };
