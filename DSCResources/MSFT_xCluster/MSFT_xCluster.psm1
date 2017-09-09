@@ -169,7 +169,7 @@ function Set-TargetResource
               StaticAddress = $StaticIPAddress
             }
 
-            if ($IgnoreNetwork.Count -ne 0)
+            if ($PSBoundParameters.ContainsKey('IgnoreNetwork'))
             {
                 $newClusterParameters += @{
                     IgnoreNetwork = $IgnoreNetwork
