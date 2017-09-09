@@ -4,6 +4,7 @@
 
 - Changes to xClusterQuorum
   - When using NodeAndFileShareMajority on Windows Server 2016 any subsequent run failed when Test-TargetResource validated the configuration.
+
 ## 1.8.0.0
 
 - Changes to xFailOverCluster
