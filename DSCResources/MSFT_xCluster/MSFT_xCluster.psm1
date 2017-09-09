@@ -167,6 +167,9 @@ function Set-TargetResource
               Name          = $Name
               Node          = $env:COMPUTERNAME
               StaticAddress = $StaticIPAddress
+              NoStorage     = $true
+              Force         = $true
+              ErrorAction   = 'Stop'
             }
 
             if ($PSBoundParameters.ContainsKey('IgnoreNetwork'))
@@ -176,7 +179,7 @@ function Set-TargetResource
                 }
             }
 
-            New-Cluster @newClusterParameters -NoStorage -Force -ErrorAction Stop
+            New-Cluster @newClusterParameters
 
             if ( -not (Get-Cluster))
             {
