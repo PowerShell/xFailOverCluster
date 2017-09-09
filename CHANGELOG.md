@@ -1,8 +1,9 @@
 # Change log for xFailOverCluster
 
 ## Unreleased
+
 - Changes to xClusterQuorum
-  - server 2016 test failed on nodeandfilesharemajority if you used filesharemajority.
+  - When using NodeAndFileShareMajority on Windows Server 2016 any subsequent run failed when Test-TargetResource validated the configuration.
 ## 1.8.0.0
 
 - Changes to xFailOverCluster
