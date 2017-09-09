@@ -34,7 +34,7 @@ function Get-TargetResource
         [System.String]
         $StaticIPAddress,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter()]
         [System.String[]]
         $IgnoreNetwork,
 
@@ -121,7 +121,7 @@ function Set-TargetResource
         [System.String]
         $StaticIPAddress,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter()]
         [System.String[]]
         $IgnoreNetwork,
 
@@ -266,7 +266,7 @@ function Test-TargetResource
         [System.String]
         $StaticIPAddress,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter()]
         [System.String[]]
         $IgnoreNetwork,
 
