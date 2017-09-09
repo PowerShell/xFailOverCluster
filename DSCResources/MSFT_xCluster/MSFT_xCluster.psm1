@@ -14,7 +14,7 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xCluster'
         Static IP Address of the failover cluster.
 
     .PARAMETER IgnoreNetwork
-        One or more networks to ignore when creating the cluster.  Typically
+        One or more networks to ignore when creating the cluster. Typically
         used to ignore networks with DHCP enabled since they are always included
         by default.
 
@@ -93,7 +93,7 @@ function Get-TargetResource
         Static IP Address of the failover cluster.
 
     .PARAMETER IgnoreNetwork
-        One or more networks to ignore when creating the cluster.  Typically
+        One or more networks to ignore when creating the cluster. Typically
         used to ignore networks with DHCP enabled since they are always included
         by default.
 
@@ -234,7 +234,7 @@ function Set-TargetResource
         Static IP Address of the failover cluster.
 
     .PARAMETER IgnoreNetwork
-        One or more networks to ignore when creating the cluster.  Typically
+        One or more networks to ignore when creating the cluster. Typically
         used to ignore networks with DHCP enabled since they are always included
         by default.
 
