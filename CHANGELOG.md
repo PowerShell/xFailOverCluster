@@ -18,6 +18,7 @@
 - Changes to xClusterQuorum
   - When using NodeAndFileShareMajority on Windows Server 2016 any subsequent run
     failed when Test-TargetResource validated the configuration.
+  - Added cloud witness (Azure storage) functionality on Windows 2016 ([issue #37](https://github.com/PowerShell/xFailOverCluster/issues/37))
 
 ## 1.8.0.0
 
