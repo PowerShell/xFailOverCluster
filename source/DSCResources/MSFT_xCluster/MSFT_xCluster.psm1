@@ -43,7 +43,7 @@ function Get-TargetResource
         [System.String[]]
         $IgnoreNetwork,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         $DomainAdministratorCredential
     )
@@ -59,7 +59,9 @@ function Get-TargetResource
 
     try
     {
-        ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+        if($PSBoundParameters.ContainsKey('DomainAdministratorCredential')){
+            ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+        }
 
         $cluster = Get-Cluster -Name $Name -Domain $computerInformation.Domain
         if ($null -eq $cluster)
@@ -86,7 +88,7 @@ function Get-TargetResource
         StaticIPAddress               = $address.Value
         IgnoreNetwork                 = $IgnoreNetwork
         DomainAdministratorCredential = $DomainAdministratorCredential
-    }
+    } #todo
 }
 
 <#
@@ -136,7 +138,7 @@ function Set-TargetResource
         [System.String[]]
         $IgnoreNetwork,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         $DomainAdministratorCredential
     )
@@ -168,7 +170,9 @@ function Set-TargetResource
 
     try
     {
-        ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+        if($PSBoundParameters.ContainsKey('DomainAdministratorCredential')){
+            ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+        }
 
         if ($bCreate)
         {
@@ -302,7 +306,7 @@ function Test-TargetResource
         [System.String[]]
         $IgnoreNetwork,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         $DomainAdministratorCredential
     )
@@ -320,7 +324,9 @@ function Test-TargetResource
 
     try
     {
-        ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+        if($PSBoundParameters.ContainsKey('DomainAdministratorCredential')){
+            ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+        }
 
         $cluster = Get-Cluster -Name $Name -Domain $ComputerInfo.Domain
 
