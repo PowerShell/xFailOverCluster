@@ -83,12 +83,18 @@ function Get-TargetResource
         }
     }
 
-    @{
+    $returnvalue = @{
         Name                          = $Name
         StaticIPAddress               = $address.Value
         IgnoreNetwork                 = $IgnoreNetwork
-        DomainAdministratorCredential = $DomainAdministratorCredential
-    } #todo
+    }
+
+    if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
+    {
+        $returnvalue.Add('DomainAdministratorCredential', $DomainAdministratorCredential)
+    }
+
+    $returnvalue
 }
 
 <#
