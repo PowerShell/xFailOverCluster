@@ -59,7 +59,8 @@ function Get-TargetResource
 
     try
     {
-        if($PSBoundParameters.ContainsKey('DomainAdministratorCredential')){
+        if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
+        {
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
         }
 
@@ -176,7 +177,8 @@ function Set-TargetResource
 
     try
     {
-        if($PSBoundParameters.ContainsKey('DomainAdministratorCredential')){
+        if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
+        {
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
         }
 
@@ -330,7 +332,8 @@ function Test-TargetResource
 
     try
     {
-        if($PSBoundParameters.ContainsKey('DomainAdministratorCredential')){
+        if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
+        {
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
         }
 
