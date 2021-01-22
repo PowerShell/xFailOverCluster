@@ -68,8 +68,13 @@ the target node ($env:COMPUTERNAME) to the cluster.
   is only used during the creation of the cluster and is not monitored after.
 * **`[PSCredential]` DomainAdministratorCredential** _(Write)_: Credential used to
   create the failover cluster in Active Directory. If this is not specified then 
-  the cluster computer object should have been prestaged as per the 
-  [docs](https://docs.microsoft.com/en-us/windows-server/failover-clustering/prestage-cluster-adds)
+  the cluster computer object must have been prestaged as per the
+  [documentation](https://docs.microsoft.com/en-us/windows-server/failover-clustering/prestage-cluster-adds).
+    * If `PsDscRunAsCredential` is used, then that account must have been granted 
+    Full Control over the Cluster Name Object in Active Directory.
+    * Otherwise the Computer Account must have been granted Full Control 
+    over the Cluster Name Object in Active Directory.
+
 
 #### Examples for xCluster
 
