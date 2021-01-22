@@ -56,7 +56,7 @@ function Get-TargetResource
         $errorMessage = $script:localizedData.TargetNodeDomainMissing
         New-InvalidOperationException -Message $errorMessage
     }
-
+    $context = $null
     try
     {
         if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
@@ -84,18 +84,13 @@ function Get-TargetResource
         }
     }
 
-    $returnvalue = @{
+    @{
         Name                          = $Name
         StaticIPAddress               = $address.Value
         IgnoreNetwork                 = $IgnoreNetwork
+        DomainAdministratorCredential = $DomainAdministratorCredential
     }
 
-    if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
-    {
-        $returnvalue.Add('DomainAdministratorCredential', $DomainAdministratorCredential)
-    }
-
-    $returnvalue
 }
 
 <#
@@ -177,6 +172,7 @@ function Set-TargetResource
 
     try
     {
+        $context = $null
         if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
         {
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
@@ -332,6 +328,7 @@ function Test-TargetResource
 
     try
     {
+        $context = $null
         if ($PSBoundParameters.ContainsKey('DomainAdministratorCredential'))
         {
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
