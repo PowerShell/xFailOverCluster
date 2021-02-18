@@ -186,6 +186,7 @@ foreach ($moduleVersion in @('2012', '2016'))
                         $mockDynamicDomainName = $mockDomainName
                         $mockDynamicServerName = $mockServerName
 
+
                         Mock -CommandName Get-Cluster -Verifiable
                         Mock -CommandName Get-CimInstance -MockWith $mockGetCimInstance -ParameterFilter $mockGetCimInstance_ParameterFilter -Verifiable
 
@@ -193,6 +194,8 @@ foreach ($moduleVersion in @('2012', '2016'))
                         { Get-TargetResource @mockGetTargetResourceParameters } | Should -Throw $mockCorrectErrorRecord
                     }
                 }
+
+
 
                 Context 'When the system is not in the desired state' {
                     BeforeEach {
@@ -225,6 +228,25 @@ foreach ($moduleVersion in @('2012', '2016'))
 
                             $getTargetResourceResult = Get-TargetResource @withIgnoreNetworkParameter
                             $getTargetResourceResult.IgnoreNetwork | Should -Be '10.0.2.0/24'
+                        }
+                    }
+
+                    Context 'When no DomainAdministratorCredential is provided' {
+
+                        $withNoDomainAdministratorCredential = $mockDefaultParameters.Clone()
+                        $withNoDomainAdministratorCredential.Remove('DomainAdministratorCredential')
+
+                        It 'Should not call Set-ImpersonateAs' {
+                            Mock -CommandName Set-ImpersonateAs -MockWith {Return 0}
+
+                            $getTargetResourceResult = Get-TargetResource @withNoDomainAdministratorCredential
+
+                            Assert-MockCalled -CommandName Set-ImpersonateAs -Times 0
+                        }
+                        It 'Should return empty DomainAdministratorCredential in the hash' {
+
+                            $getTargetResourceResult = Get-TargetResource @withNoDomainAdministratorCredential
+                            $getTargetResourceResult.DomainAdministratorCredential | Should -BeNullOrEmpty
                         }
                     }
 
