@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 For older change log history see the [historic changelog](HISTORIC_CHANGELOG.md).
 
 ## [Unreleased]
+### Changed internal workings of cluster name
+- Now you can use distinguished naming of cluster to place it in an Organizational Unit of your choice.
+  - As an example "CN=CLUSTER,OU=BUSINESS,DC=RANDOM,DC=LOCAL"
 
 ## [1.16.0] - 2021-03-17
 

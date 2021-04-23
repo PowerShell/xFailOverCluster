@@ -1,6 +1,8 @@
 $script:resourceHelperModulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..\Modules\DscResource.Common'
+$script:failoverClusterHelperModulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..\Modules\FailoverCluster.Common'
 
 Import-Module -Name $script:resourceHelperModulePath
+Import-Module -Name $script:failoverClusterHelperModulePath
 
 $script:localizedData = Get-LocalizedData -DefaultUICulture 'en-US'
 
@@ -64,7 +66,7 @@ function Get-TargetResource
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
         }
 
-        $cluster = Get-Cluster -Name $Name -Domain $computerInformation.Domain
+        $cluster = Get-Cluster -Name (Convert-DistinguishedNameToSimpleName $Name) -Domain $computerInformation.Domain
         if ($null -eq $cluster)
         {
             $errorMessage = $script:localizedData.ClusterNameNotFound -f $Name
@@ -72,7 +74,7 @@ function Get-TargetResource
         }
 
         # This will return the IP address regardless if using Static IP or DHCP.
-        $address = Get-ClusterResource -Cluster $Name -Name 'Cluster IP Address' | Get-ClusterParameter -Name 'Address'
+        $address = Get-ClusterResource -Cluster (Convert-DistinguishedNameToSimpleName $Name) -Name 'Cluster IP Address' | Get-ClusterParameter -Name 'Address'
     }
     finally
     {
@@ -85,7 +87,7 @@ function Get-TargetResource
     }
 
     @{
-        Name                          = $Name
+        Name                          = (Convert-DistinguishedNameToSimpleName $Name)
         StaticIPAddress               = $address.Value
         IgnoreNetwork                 = $IgnoreNetwork
         DomainAdministratorCredential = $DomainAdministratorCredential
@@ -158,7 +160,7 @@ function Set-TargetResource
 
     try
     {
-        $cluster = Get-Cluster -Name $Name -Domain $computerInformation.Domain
+        $cluster = Get-Cluster -Name (Convert-DistinguishedNameToSimpleName $Name) -Domain $computerInformation.Domain
 
         if ($cluster)
         {
@@ -224,7 +226,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ($script:localizedData.AddNodeToCluster -f $targetNodeName, $Name)
 
-            $list = Get-ClusterNode -Cluster $Name
+            $list = Get-ClusterNode -Cluster (Convert-DistinguishedNameToSimpleName $Name)
             foreach ($node in $list)
             {
                 if ($node.Name -eq $targetNodeName)
@@ -233,12 +235,12 @@ function Set-TargetResource
                     {
                         Write-Verbose -Message ($script:localizedData.RemoveOfflineNodeFromCluster -f $targetNodeName, $Name)
 
-                        Remove-ClusterNode -Name $targetNodeName -Cluster $Name -Force
+                        Remove-ClusterNode -Name $targetNodeName -Cluster (Convert-DistinguishedNameToSimpleName $Name) -Force
                     }
                 }
             }
 
-            Add-ClusterNode -Name $targetNodeName -Cluster $Name -NoStorage
+            Add-ClusterNode -Name $targetNodeName -Cluster (Convert-DistinguishedNameToSimpleName $Name) -NoStorage
 
             Write-Verbose -Message ($script:localizedData.AddNodeToClusterSuccessful -f $targetNodeName, $Name)
         }
@@ -334,7 +336,7 @@ function Test-TargetResource
             ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
         }
 
-        $cluster = Get-Cluster -Name $Name -Domain $ComputerInfo.Domain
+        $cluster = Get-Cluster -Name (Convert-DistinguishedNameToSimpleName $Name) -Domain $ComputerInfo.Domain
 
         Write-Verbose -Message ($script:localizedData.ClusterPresent -f $Name)
 
@@ -344,7 +346,7 @@ function Test-TargetResource
 
             Write-Verbose -Message ($script:localizedData.CheckClusterNodeIsUp -f $targetNodeName, $Name)
 
-            $allNodes = Get-ClusterNode -Cluster $Name
+            $allNodes = Get-ClusterNode -Cluster (Convert-DistinguishedNameToSimpleName $Name)
 
             foreach ($node in $allNodes)
             {
@@ -500,3 +502,5 @@ function Close-UserToken
         New-InvalidOperationException -Message $errorMessage
     }
 }
+
+Export-ModuleMember -Function *-TargetResource

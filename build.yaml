@@ -4,6 +4,7 @@
 ####################################################
 CopyPaths:
     - DSCResources
+    - Modules
     - en-US
 Encoding: UTF8
 VersionedOutputDirectory: true
